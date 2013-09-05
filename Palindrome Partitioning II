@@ -1,0 +1,63 @@
+
+ 
+public class Solution {
+    public int minCut(String s) {
+        int length = s.length();
+        int[] dp = new int[length + 1];
+        boolean[][] parlin = new boolean[length][length];
+        
+        for (int i = length; i >= 0; i--) {
+            dp[i] = length - i;
+        }
+        
+        for (int i = length - 1; i >= 0; i--) {
+            for (int j = i; j < length; j++) {
+                if (s.charAt(i) == s.charAt(j) && (j - i < 2 || parlin[i + 1][j - 1])) {
+                    parlin[i][j] = true;
+                    dp[i] = Math.min(dp[i], dp[j + 1] + 1);
+                }
+            }
+        }
+        
+        return dp[0] - 1;
+    }
+} 
+
+
+public class Solution {
+    public int res ;
+    public int minCut(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        res = Integer.MAX_VALUE;
+        solve(s,0,0);
+        return res;
+    }
+    public void solve(String s , int index, int cut){
+        int len = s.length();
+        if(index >= len -1) res = Math.min(res,cut-1);    
+        if(cut > res) return;
+        for(int i = len-1 ; i >= index ; i--){
+             if(isPalindrome(s,index,i)){
+                 solve(s,i+1,cut+1);
+             }
+        }
+    }
+    
+    public boolean isPalindrome(String s , int a , int b){
+        int len = s.length();
+        if(a<0 || b<0 || a>=len || b>=len) return false;
+        if(a==b) return true;
+        if(a>b){
+            int tem = a;
+            a = b;
+            b = tem;
+        }
+        while(a<b){
+            
+            if(s.charAt(a) != s.charAt(b)) return false;
+            a++; b--;
+        }
+        return true;
+    }
+}
