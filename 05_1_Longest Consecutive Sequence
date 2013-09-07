@@ -1,0 +1,30 @@
+public class Solution {
+    public int longestConsecutive(int[] num) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        HashSet<Integer> hs = new HashSet<Integer>();
+        for(int n : num){
+          hs.add(n);
+        }
+        int res = 0 ;
+        for(int n:num){
+          res = Math.max(res, consecutive(hs , n));
+        }
+        return res;
+    }
+    public int consecutive(HashSet<Integer> hs , int n){
+      if(!hs.contains(n)) return 0;
+      hs.remove(n);
+      int left = n-1;
+      int right = n+1;
+      while(hs.contains(left)){
+        hs.remove(left);
+        left--;
+      }
+      while(hs.contains(right)){
+        hs.remove(right);
+        right++;
+      }
+      return right - left -1;
+    }
+}
