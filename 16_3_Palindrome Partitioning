@@ -1,0 +1,31 @@
+public class Solution {
+    ArrayList<ArrayList<String>> res;
+    boolean[][] matrix;
+    public ArrayList<ArrayList<String>> partition(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        res = new ArrayList<ArrayList<String>>();
+        int len = s.length();
+        matrix = new boolean[len][len];
+        ArrayList<String> arr = new ArrayList<String>();
+        solve(s,0,arr);
+        return res;
+    }
+    public void solve(String s, int index , ArrayList<String> arr){
+        int len = s.length();
+        if(index >= len) {
+            ArrayList<String> tem = new ArrayList<String>(arr);
+            res.add(tem);
+            return;
+        } 
+            for(int j = index ; j < len ; j++){
+                if(s.charAt(index) == s.charAt(j) && ( j-index<2|| matrix[index+1][j-1]==true ))
+                {
+                    matrix[index][j] = true;
+                    arr.add(s.substring(index,j+1));  
+                    solve(s, j+1 , arr);
+                    arr.remove(arr.size()-1);
+                }
+            } 
+    }
+}
