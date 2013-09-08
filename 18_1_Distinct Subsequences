@@ -1,0 +1,25 @@
+f(i, j) = f(i - 1, j) + S[i] == T[j]? f(i - 1, j - 1) : 0 Where f(i, j) is the number of distinct sub-sequence for T[0:j] in S[0:i].
+
+
+public class Solution {
+    public int numDistinct(String S, String T) {
+         int row = S.length();
+         int column = T.length();
+         if(row*column == 0) return 0;
+         int[][] matrix = new int[row+1][column+1];
+         for(int i = 0 ; i <= row ; i++)
+         {
+            Arrays.fill(matrix[i],0);
+            matrix[i][0] = 1;
+         }
+         for(int i = 1 ; i<= row ; i++)
+          for(int j = 1; j<=column ;j++){
+            matrix[i][j] = matrix[i-1][j];
+            if(S.charAt(i-1) == T.charAt(j-1))
+            {
+              matrix[i][j]+= matrix[i-1][j-1];
+            }
+          }
+        return matrix[row][column];
+    }
+}
