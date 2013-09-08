@@ -4,9 +4,9 @@ public class Solution {
       int len = s.length();
       int left = 0 , right = s.length()-1;
       while(left< right){
-        while(left < len-1 && (s.charAt(left) > 'z'||s.charAt(left) < 'a')) left++;
-        while(right >0 && (s.charAt(right) > 'z'||s.charAt(right) < 'a')) right--; 
-        if(left<right) return true;
+        while(left < len && (s.charAt(left) > 'z'||s.charAt(left) < 'a') && (s.charAt(left) > 57||s.charAt(left) < 48)) left++;
+        while(right >=0 && (s.charAt(right) > 'z'||s.charAt(right) < 'a')&& (s.charAt(right) > 57||s.charAt(right) < 48)) right--; 
+        if(left>=right) return true;
         if(s.charAt(left)!=s.charAt(right) ) return false;
         left++;
         right--;
