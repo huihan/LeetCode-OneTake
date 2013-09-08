@@ -1,0 +1,56 @@
+public class Solution {
+    public ArrayList<ArrayList<String>> findLadders(String start, String end, HashSet<String> dict) {
+        Queue<Node> qe = new LinkedList<Node>();                      //time 1 remmber
+        HashSet<String> unique = new HashSet<String>();
+        qe.offer(new Node(start , null));
+        int min = -1;
+        ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
+        while(!qe.isEmpty()){
+          Node n = qe.poll();
+          unique.add(n.s);
+          for(int i = 0 ; i < n.s.length(); i++){
+              for(char c = 'a'; c<='z'  ; c++){
+                if(c==n.s.charAt(i)) continue;                          // time2
+                StringBuffer buf = new StringBuffer(n.s);
+                buf.setCharAt(i , c);
+                String tem = buf.toString();
+                if(tem.equals(end)){
+                  ArrayList<String> res_part = new ArrayList<String>();
+                  int count = 0;
+                  Node tem_node = n;
+                  res_part.add(0,end);
+                  while(tem_node!=null){
+                    count++;
+                    res_part.add(0,tem_node.s);
+                    tem_node = tem_node.p; 
+                  }
+                  if(min < 0){
+                    min = count;
+                  }
+                  else {
+                    if(count > min) return res;
+                  }
+                  res.add(res_part);
+                }//find and add
+                else if(!unique.contains(tem)&& dict.contains(tem)){
+                  if(min <0){
+                     qe.offer(new Node(tem , n));
+                  }
+                }
+                
+              }
+          }
+        }
+        return res;
+    }
+    
+}
+class Node{
+  Node p;
+  String s;
+  public Node(String str , Node n)
+  {
+    this.s = str;
+    this.p = n;
+  }
+}
