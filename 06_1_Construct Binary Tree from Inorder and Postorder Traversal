@@ -1,0 +1,28 @@
+ 
+public class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+       
+       int len = inorder.length;
+       int len2 = postorder.length;
+       if(len !=len2) return null;
+       
+       return builtTree_DP(inorder,0,len-1 , postorder , 0 , len-1);
+        
+    }
+    public TreeNode builtTree_DP(int[] inorder , int p1 , int q1, int[] postorder,int p2,int q2){
+        if(p1 > q1) return null;
+        if(p1 == q1) return new TreeNode(inorder[p1]);
+        int mid = postorder[q2];
+        int index = search(inorder,p1,q1 , mid);
+        TreeNode root = new TreeNode(mid);
+        root.left  = builtTree_DP(inorder, p1 ,index-1 , postorder , p2 , p2 + index - p1 -1  );
+        root.right = builtTree_DP(inorder, index+1 ,q1 , postorder , p2+ index - p1  , q2-1  );
+        return root;
+    }
+    public int search(int[] arr,    int p1 , int q1, int t){
+        for(int i = p1 ; i <= q1 ; i++){
+          if(arr[i] == t) return i;
+        }
+        return p1;
+    }
+}
