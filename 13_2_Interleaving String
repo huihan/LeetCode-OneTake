@@ -1,0 +1,30 @@
+public class Solution {
+    public boolean isInterleave(String s1, String s2, String s3) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int lena = s1.length();
+        int lenb = s2.length();
+        if(lena+lenb != s3.length()) return false; 
+        boolean[][] matrix = new boolean[lena+1][lenb+1];
+        
+        for(int i = 0 ; i <= lena ; i++) Arrays.fill(matrix[i],false);
+        matrix[lena][lenb]= true;
+        
+        for(int i = lenb-1 ; i >=0 ; i--) 
+            if(s2.charAt(i ) == s3.charAt(lena + i  ) && matrix[lena][i+1] ) 
+                matrix[lena][i] = true; 
+                
+        for(int i = lena -1 ; i>=0 ; i--)
+            if(s1.charAt(i) == s3.charAt(lenb + i  ) && matrix[i+1][lenb] ) 
+                matrix[i][lenb] = true; 
+                
+        for(int i = lena -1 ; i>=0 ;i--)
+            for(int j = lenb -1; j>=0 ; j--) 
+                if((matrix[i][j+1] == true && s2.charAt(j) == s3.charAt(i+j)))
+                 ||(matrix[i+1][j] == true && s1.charAt(i) == s3.charAt(i+j)))
+                   matrix[i][j] == true;  
+        
+        return  matrix[0][0];
+    }
+    
+}
