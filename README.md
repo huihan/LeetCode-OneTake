@@ -1,7 +1,7 @@
 LeetCode One take
 ============
 
-These files is writen to pretice bug-free coding.
+These files are writen to practice bug-free coding.
 And usually the answer is better than the older one.
 
 18_1_problem.name.java
