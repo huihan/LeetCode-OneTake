@@ -18,11 +18,11 @@ public class Solution {
         if(map[row][col] ==  true) return false;
         if(board[row][col] != word.charAt(index))  return false;
         map[row][col] =  true;
-        boolean a = solve(board,word,index+1  , row-1 , col , map);
-        boolean b = solve(board,word,index+1  , row+1 , col , map);
-        boolean c = solve(board,word,index+1  , row , col+1 , map);
-        boolean d = solve(board,word,index+1  , row , col-1 , map);
+        if( solve(board,word,index+1  , row-1 , col , map)) return true;
+        if( solve(board,word,index+1  , row+1 , col , map)) return true;
+        if( solve(board,word,index+1  , row  , col-1 , map)) return true;
+        if( solve(board,word,index+1  , row  , col+1 , map)) return true;
         map[row][col] = false;
-        return a||b||c||d;
+        return false;
     }
 }
